@@ -37,9 +37,8 @@ def find_links_footers(url):
 
     return anchors
     
-
 #Returns list of links that contain keywords from the KEYWORDS list
-def check_footer_links(anchors):
+def check_links(anchors):
     checked_anchors = []
 
     for anchor in anchors:
@@ -57,13 +56,14 @@ def check_duplicates(list_input):
             unique_list.append(item)
     return unique_list
 
+#Combines the above methods to scrape footers and return a list of unique links that contain keywords from the KEYWORDS list
 def scrape_footers(url):
     anchors = find_links_footers(url)
     if not anchors:
         return found_links
-    checked_anchors = check_footer_links(anchors)
+    checked_anchors = check_links(anchors)
     unique_list = check_duplicates(checked_anchors)
-    found_links.append(unique_list)
+    found_links.extend(unique_list)
     return found_links
 
 #Link methods #2 -- scraping robots.txt
@@ -77,6 +77,7 @@ def get_robots_txt(domain):
     except requests.RequestException:
         return None
 
+#Getting links from robots.txt file, only if User-agent: * is present and Disallow is not present
 def extract_links_robots_txt(robots_txt):
     links = []
     if robots_txt is None or not robots_txt:
@@ -91,25 +92,52 @@ def extract_links_robots_txt(robots_txt):
                     links.append(path)
     return links
 
-def check_links_robots_txt(links):
-    checked_links = []
-    for link in links:
-        for keyword in KEYWORDS:
-            if keyword.strip().lower() in link.strip().lower():
-                checked_links.append(link)
-                break
-    return checked_links
-
+#Combines the above methods to scrape robots.txt and return a list of unique links that contain keywords from the KEYWORDS list
 def scrape_robots_txt(domain):
     robots_txt = get_robots_txt(domain)
     if robots_txt:
         links = extract_links_robots_txt(robots_txt)
-        checked_links = check_links_robots_txt(links)
+        checked_links = check_links(links)
         unique_list = check_duplicates(checked_links)
-        found_links.append(unique_list)
+        found_links.extend(unique_list)
     return found_links
 
+#Link method #3 -- scraping sitemap.xml
+def get_sitemap(domain):
+    url = f"https://{domain}/sitemap.xml"
+
+    try:
+        response = requests.get(url, timeout=10)
+        response.raise_for_status()
+        return response.text
+    except requests.RequestException:
+        return None
+
+#Extracts links from the sitemap.xml file
+def extract_links_sitemap(sitemap_xml):
+    links = []
+    if sitemap_xml is None or not sitemap_xml:
+        return links
+    soup = BeautifulSoup(sitemap_xml, 'xml')
+    for url in soup.find_all('loc'):
+        link = url.get_text(strip=True)
+        links.append(link)
+    return links
+
+def scrape_sitemap(domain):
+    sitemap_xml = get_sitemap(domain)
+    if sitemap_xml:
+        links = extract_links_sitemap(sitemap_xml)
+        checked_links = check_links(links)
+        unique_list = check_duplicates(checked_links)
+        found_links.extend(unique_list)
+    return found_links
+
+#Combines all methods to find the complete list of unique links that contain keywords from the KEYWORDS list
 def find_links(domain):
     scrape_robots_txt(domain)
     scrape_footers(f'https://{domain}')
+    scrape_sitemap(domain)
     return found_links
+
+print(find_links("google.com"))

@@ -139,5 +139,3 @@ def find_links(domain):
     scrape_footers(f'https://{domain}')
     scrape_sitemap(domain)
     return found_links
-
-print(find_links("google.com"))

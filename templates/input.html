@@ -1,0 +1,15 @@
+<!doctype html>
+<html>
+<head>
+    <title>Policy Checker Input</title>
+    <link rel="stylesheet" href="static/css/input.css">
+    </head>
+    <body>
+    <div><form action="/" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="text" name="url" placeholder="Enter a URL">
+        <input type="submit" value="Submit">
+    </form>
+    </div>
+    </body>
+</html>

@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic:wght@400..700&display=swap');
+
+body{
+    font-family: 'Special Gothic', sans-serif;
+    line-height: 1.6;
+    margin: 5%;
+    padding: 0;
+    text-align: center;
+}
+
+h1{
+    font-size: 3rem;
+    font-weight: 700;
+    padding: 0;
+    margin: 0;
+}
+
+h5{
+    padding: 0;
+    margin: 0;
+}
+
+p{
+    font-size: 1.25rem;
+    padding-top: 0;
+    margin-top: 0;
+    margin-bottom: 2rem;
+}
+
+input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: 'Special Gothic', sans-serif;
+    font-size: 1rem;
+}
+
+input[type="submit"] {
+    padding: 0.5rem 1rem;
+    background-color: #c6d4e2;
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Special Gothic', sans-serif;
+}
+
+.about-product p {
+    text-align: left;
+    font-size: 0.9rem;
+    padding: 0;
+    margin: 0;
+    line-height: 1.4;
+    width: 80%;
+}
+
+.about-product {
+    margin: 5%;
+    padding: 2%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}

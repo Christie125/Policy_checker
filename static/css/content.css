@@ -1,0 +1,55 @@
+    
+@import url('https://fonts.googleapis.com/css2?family=Special+Gothic:wght@400..700&display=swap');
+
+root{
+    --link: #007BFF;
+}
+
+body{
+    font-family: 'Special Gothic', sans-serif;
+    line-height: 1.6;
+    margin: 5%;
+    padding: 0;
+}
+
+h1{
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+h2{
+    font-size: 1.75rem;
+    font-weight: 600;
+}
+
+h3{
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+h4{
+    font-size: 1.25rem;
+    font-weight: 400;
+}
+  
+p {
+    font-size: 1rem;
+} 
+
+code{
+    font-size: 0.9rem;
+    font-family: monospace;
+}
+
+a{
+    color: var(--link);
+    text-decoration: underline;
+}
+
+div{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    padding: 1rem;
+}
+

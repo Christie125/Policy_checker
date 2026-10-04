@@ -5,11 +5,29 @@
     <link rel="stylesheet" href="static/css/input.css">
     </head>
     <body>
-    <div><form action="/" method="post">
-        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
-        <input type="text" name="url" placeholder="Enter a URL">
-        <input type="submit" value="Submit">
-    </form>
-    </div>
+        <h1>Policy Checker</h1>
+        <p>Enter a URL to check its policies:</p>
+        <div><form action="/" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="text" name="url" placeholder="Enter a URL">
+            <input type="submit" value="Submit">
+        </form>
+        </div>
+        <div class="about-product">
+            <h2>About this tool</h2>
+            <p>This is a simple policy checker that allows you to enter a URL and check its policies.</p>
+            <p>As a security-conscious person, I always found myself really frustrated that the 10000 legal policies every company has are impossible to a) find and b) parse, because they're written in legalese.</p>
+            <p>I built this tool to help us me to find and check the policies of websites we use in normal English, using AI to summarize and explain them.</p>
+            <p>I hope it will be useful to you!</p>
+            <br>
+        </div>
+        <div class="disclaimer">
+            <h5>Disclaimer</h5>
+            <small>This tool is not a substitute for legal advice.</small>
+            <small>Always consult a qualified legal professional for any legal matters.</small>
+            <br>
+            <small>To provide feedback, report bugs, or give suggestions, please contact us at me <a href="mailto:christie12514@gmail.com">here</a>.</small>
+            <br>
+        </div>
     </body>
 </html>

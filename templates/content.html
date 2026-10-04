@@ -2,8 +2,14 @@
 <html>
 <head>
     <title>Policy Checker Content</title>
+    <link rel="stylesheet" href="static/css/content.css">
     </head>
     <body>
-    <div>{{ content | safe }}</div>
+    <div class="content">{{ content | safe }}</div>
+    <div class="disclaimer">
+        <small>This tool uses AI. It may provide innacurate information, so excersise caution and double-check the details.</small>
+        <small>Disclaimer: This tool is not a substitute for legal advice. Always consult a qualified legal professional for any legal matters.</small>
+        <small>To provide feedback, report bugs, or give suggestions, please contact us at me <a href="mailto:christie12514@gmail.com">here</a>.</small>
+    </div>
     </body>
 </html>

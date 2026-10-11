@@ -6,3 +6,4 @@ beautifulsoup4==4.15.0
 lxml==6.1.1
 python-dotenv==1.2.3
 openrouter==1.1.74
+Flask-Limiter==4.1.1

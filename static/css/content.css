@@ -53,3 +53,13 @@ div{
     padding: 1rem;
 }
 
+    .button{
+    padding: 0.5rem 1rem;
+    background-color: #c6d4e2;
+    color: black;
+    border: 1px solid black;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'Special Gothic', sans-serif;
+    width: 10%;
+}

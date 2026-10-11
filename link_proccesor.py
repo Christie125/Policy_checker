@@ -50,6 +50,7 @@ def summarise_content(content, proccessed_content):
     response = client.chat.send(
         model="google/gemini-3.7-flash",
         messages=[{"role": "user", "content": prompt}],
+        reasoning_effort="low",
         stream=True,
     )
 
@@ -69,6 +70,7 @@ def moderate(text):
         messages=[
             {"role": "user", "content": moderation_prompt}
         ],
+        reasoning_effort="low",
     )
     return result.choices[0].message.content.strip()
 

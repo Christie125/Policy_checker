@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from urllib.parse import urljoin
+from urllib.parse import urljoin, urlparse
 
 import url_safety
 
@@ -38,6 +38,12 @@ def find_links_footers(url):
 
     return anchors
     
+#Returns True if url belongs to domain (or a subdomain of it), filtering out unrelated external links (e.g. social media profiles)
+def is_same_domain(url, domain):
+    netloc = urlparse(url).netloc.lower()
+    domain = domain.lower()
+    return netloc == domain or netloc.endswith("." + domain)
+
 #Returns list of links that contain keywords from the KEYWORDS list
 def check_links(anchors):
     checked_anchors = []
@@ -64,6 +70,8 @@ def scrape_footers(url, found_links):
     anchors = find_links_footers(url)
     if not anchors:
         return found_links
+    domain = urlparse(url).netloc
+    anchors = [a for a in anchors if is_same_domain(a, domain)]
     checked_anchors = check_links(anchors)
     unique_list = check_duplicates(checked_anchors)
     print("Final unique links:", unique_list)

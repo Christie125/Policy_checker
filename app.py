@@ -77,4 +77,4 @@ def internal_error_handler(e):
 
 if __name__ == "__main__":
     print("Starting Flask app")
-    app.run()
+    app.run(threaded=True)

@@ -16,6 +16,8 @@ ALLOWED_ATTRIBUTES = {
 
 ALLOWED_PROTOCOLS = ["http", "https"]
 
+MAX_CONTENT_CHARS = 40000
+
 MODERATION_CATEGORIES = [
     "hate or harassment",
     "sexual content",
@@ -74,7 +76,7 @@ def moderate(text):
     )
     return result.choices[0].message.content.strip()
 
-def format_output(proccessed_content):
+def format_output(proccessed_content, truncated=False):
 
     proccessed_content = "".join(proccessed_content)
 
@@ -84,13 +86,23 @@ def format_output(proccessed_content):
         return "<p>This summary was flagged by our content moderation and could not be displayed.</p>"
 
     sanitised_content = sanitize_html(proccessed_content)
+    if truncated:
+        sanitised_content += (
+            "<p><em>Note: This page had a large amount of policy text, "
+            "so only part of it could be analyzed.</em></p>"
+        )
     print("Processed content:", sanitised_content)
     return sanitised_content
 
 def synthesise_scraped_data(content):
     proccessed_content = []
-    summarise_content(content, proccessed_content)
-    final_content = format_output(proccessed_content)
+    full_text = " ".join(content)
+    truncated = len(full_text) > MAX_CONTENT_CHARS
+    if truncated:
+        print(f"Scraped content too large ({len(full_text)} chars), truncating to {MAX_CONTENT_CHARS}")
+        full_text = full_text[:MAX_CONTENT_CHARS]
+    summarise_content([full_text], proccessed_content)
+    final_content = format_output(proccessed_content, truncated)
     print("Final content to be displayed:", final_content)
     return final_content
 

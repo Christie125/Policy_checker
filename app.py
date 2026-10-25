@@ -1,4 +1,5 @@
 import os
+import traceback
 
 from flask import Flask, render_template, request, redirect, url_for
 from flask_wtf import CSRFProtect
@@ -59,14 +60,20 @@ def content():
         return redirect(url_for('input'))
     domain = link_converter.get_domain(url)
     print(f"Extracted domain from URL: {domain}")
-    found_links = link_finder.find_links(domain)
-    scraped_links = link_scraper.scrape_links(found_links)
     try:
+        found_links = link_finder.find_links(domain)
+        scraped_links = link_scraper.scrape_links(found_links)
         proccessed_content = link_proccesor.synthesise_scraped_data(scraped_links)
-    except:
+    except Exception:
+        traceback.print_exc()
         proccessed_content = "<p>Error processing content. Please try again later.</p>"
     print(f"Processed content to be displayed: {proccessed_content}")
     return render_template('content.html', content=proccessed_content)
+
+@app.errorhandler(500)
+def internal_error_handler(e):
+    traceback.print_exc()
+    return render_template('content.html', content="<p>Error processing content. Please try again later.</p>"), 500
 
 if __name__ == "__main__":
     print("Starting Flask app")
